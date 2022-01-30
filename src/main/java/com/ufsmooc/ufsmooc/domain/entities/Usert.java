@@ -1,25 +1,23 @@
 package com.ufsmooc.ufsmooc.domain.entities;
 
 
-import lombok.Cleanup;
+import com.ufsmooc.ufsmooc.domain.dto.UserDto;
+import com.ufsmooc.ufsmooc.util.SecurityUtil;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 @Data
 @EqualsAndHashCode
-public class UserEntity {
+public class Usert {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    public UserEntity( String name) { //n pode criar table chamada user
-
-    }
 
     @Column(nullable = false)
     private String name;
@@ -42,11 +40,21 @@ public class UserEntity {
     @Column(length = 11, unique = true, nullable = false)
     private String cpf;
 
-    @Column(nullable = false)
-    private int typeUser;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Role role;
 
+    public Usert(UserDto user, Role role) {
+        this.name = user.getName();
+        this.surname = user.getSurname();
+        this.cpf = user.getCpf();
+        this.email = user.getEmail();
+        this.uf = user.getUf();
+        this.city = user.getCity();
+        this.password = SecurityUtil.encryptPassword(user.getPassword());
+        this.role = role;
+    }
 
-    public UserEntity() {
-        this.name = "a";
+    public Usert() {
+
     }
 }

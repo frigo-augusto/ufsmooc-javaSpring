@@ -38,6 +38,7 @@ public class UfsmoocApplication {
             usertService.save(new Usert(new UserDto("admin", "da silva", "44444444444", "admin@gmail.com",
                     "SP", "santa maria", "123", null), null));
 
+            usertService.addRole("student@gmail.com", "ROLE_STUDENT");
             usertService.addRole("teacher@gmail.com", "ROLE_TEACHER");
             usertService.addRole("admin@gmail.com", "ROLE_ADMIN");
 

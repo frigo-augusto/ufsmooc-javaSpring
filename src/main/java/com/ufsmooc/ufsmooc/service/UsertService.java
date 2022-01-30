@@ -29,6 +29,7 @@ public class UsertService implements UsertServiceInterface, UserDetailsService{
     @Override
     public Usert save(Usert usert) {
         usert.setPassword(SecurityUtil.encryptPassword(usert.getPassword()));
+        System.out.println("opaaa!!!");
         return usertRepo.save(usert);
     }
 

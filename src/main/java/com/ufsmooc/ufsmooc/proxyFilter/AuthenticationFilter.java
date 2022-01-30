@@ -1,4 +1,4 @@
-package proxyFilter;
+package com.ufsmooc.ufsmooc.proxyFilter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -29,12 +29,15 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        System.out.println(email + password);
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(email, password);
+        System.out.println(authToken);
         return authenticationManager.authenticate(authToken);
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
+        System.out.println("autenticado");
         User user = (User) authentication.getPrincipal();
         Algorithm algorithm = Algorithm.HMAC256("secret".getBytes()); //change later!!
         String access_token = JWT.create()
@@ -56,6 +59,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        super.unsuccessfulAuthentication(request, response, failed);
+        System.out.println(request);
+        System.out.println(response);
+        System.out.println(failed.getMessage());
     }
 }

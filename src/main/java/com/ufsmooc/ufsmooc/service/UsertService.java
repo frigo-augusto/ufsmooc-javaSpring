@@ -10,7 +10,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.transaction.Transactional;
 import java.security.InvalidParameterException;
@@ -24,11 +26,12 @@ public class UsertService implements UsertServiceInterface, UserDetailsService{
 
     private final UsertRepo usertRepo;
     private final RoleServiceInterface roleRepo;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Override
     public Usert save(Usert usert) {
-        usert.setPassword(SecurityUtil.encryptPassword(usert.getPassword()));
+        //usert.setPassword(passwordEncoder.encode(usert.getPassword())); //needs to be commented because of bad credentials issue
         System.out.println("opaaa!!!");
         return usertRepo.save(usert);
     }
@@ -59,4 +62,5 @@ public class UsertService implements UsertServiceInterface, UserDetailsService{
         authority.add(new SimpleGrantedAuthority(role.getName()));
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authority);
     }
+
 }

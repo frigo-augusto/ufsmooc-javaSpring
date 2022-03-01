@@ -7,12 +7,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.util.Optional;
 
 @Entity
 @Data
 @EqualsAndHashCode
-public class Usert {
+public class User {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -43,7 +42,7 @@ public class Usert {
     @ManyToOne(fetch = FetchType.EAGER)
     private Role role;
 
-    public Usert(UserDto user, Role role) {
+    public User(UserDto user, Role role) {
         this.name = user.getName();
         this.surname = user.getSurname();
         this.cpf = user.getCpf();
@@ -54,7 +53,7 @@ public class Usert {
         this.role = role;
     }
 
-    public Usert() {
+    public User() {
 
     }
 }

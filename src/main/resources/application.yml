@@ -1,9 +1,10 @@
-spring:
-  jpa:
-    hibernate:
-      ddl-auto: create
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-  datasource:
-    url: "jdbc:postgresql://localhost:5432/ufsmooc"
-    username: postgres
-    password: '123'
+#spring:
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#  datasource:
+#    url: "jdbc:mysql:driver://localhost:3306/test
+#"
+#    username: ufsmooc
+#    password: '123'

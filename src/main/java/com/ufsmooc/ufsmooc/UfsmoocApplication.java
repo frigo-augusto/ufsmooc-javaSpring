@@ -2,10 +2,9 @@ package com.ufsmooc.ufsmooc;
 
 import com.ufsmooc.ufsmooc.domain.dto.UserDto;
 import com.ufsmooc.ufsmooc.domain.entities.Role;
-import com.ufsmooc.ufsmooc.domain.entities.Usert;
+import com.ufsmooc.ufsmooc.domain.entities.User;
 import com.ufsmooc.ufsmooc.service.RoleService;
-import com.ufsmooc.ufsmooc.service.UsertServiceInterface;
-import com.ufsmooc.ufsmooc.util.SecurityUtil;
+import com.ufsmooc.ufsmooc.service.UserServiceInterface;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,17 +24,17 @@ public class UfsmoocApplication {
     }
 
     @Bean
-    CommandLineRunner run(UsertServiceInterface usertService, RoleService roleService){
+    CommandLineRunner run(UserServiceInterface usertService, RoleService roleService){
         return args -> {
             roleService.save(new Role("ROLE_STUDENT"));
             roleService.save(new Role("ROLE_TEACHER"));
             roleService.save(new Role("ROLE_ADMIN"));
 
-            usertService.save(new Usert(new UserDto("student", "da silva", "22222222222", "student@gmail.com",
+            usertService.save(new User(new UserDto("student", "da silva", "22222222222", "student@gmail.com",
                     "RS", "santa maria", "123", null), null));
-            usertService.save(new Usert(new UserDto("teacher", "da silva", "33333333333", "teacher@gmail.com",
+            usertService.save(new User(new UserDto("teacher", "da silva", "33333333333", "teacher@gmail.com",
                     "SP", "santa maria", "123", null), null));
-            usertService.save(new Usert(new UserDto("admin", "da silva", "44444444444", "admin@gmail.com",
+            usertService.save(new User(new UserDto("admin", "da silva", "44444444444", "admin@gmail.com",
                     "SP", "santa maria", "123", null), null));
 
             usertService.addRole("student@gmail.com", "ROLE_STUDENT");

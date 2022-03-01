@@ -1,18 +1,15 @@
 package com.ufsmooc.ufsmooc.service;
 
 import com.ufsmooc.ufsmooc.domain.entities.Role;
-import com.ufsmooc.ufsmooc.domain.entities.Usert;
-import com.ufsmooc.ufsmooc.domain.repo.UsertRepo;
-import com.ufsmooc.ufsmooc.util.SecurityUtil;
+import com.ufsmooc.ufsmooc.domain.entities.User;
+import com.ufsmooc.ufsmooc.domain.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.transaction.Transactional;
 import java.security.InvalidParameterException;
@@ -22,41 +19,41 @@ import java.util.List;
 
 
 @Service @RequiredArgsConstructor @Transactional
-public class UsertService implements UsertServiceInterface, UserDetailsService{
+public class UserService implements UserServiceInterface, UserDetailsService{
 
-    private final UsertRepo usertRepo;
+    private final UserRepo userRepo;
     private final RoleServiceInterface roleRepo;
     private final PasswordEncoder passwordEncoder;
 
 
     @Override
-    public Usert save(Usert usert) {
-        //usert.setPassword(passwordEncoder.encode(usert.getPassword())); //needs to be commented because of bad credentials issue
+    public User save(User user) {
+        //user.setPassword(passwordEncoder.encode(user.getPassword())); //needs to be commented because of bad credentials issue
         System.out.println("opaaa!!!");
-        return usertRepo.save(usert);
+        return userRepo.save(user);
     }
 
     @Override
     public void addRole(String email, String roleName) {
-        Usert usert = this.findByEmail(email);
+        User user = this.findByEmail(email);
         Role role = roleRepo.findByName(roleName);
-        usert.setRole(role);
-        usertRepo.save(usert);
+        user.setRole(role);
+        userRepo.save(user);
     }
 
     @Override
-    public Usert findByEmail(String email) {
-        return usertRepo.findByEmail(email).orElseThrow(() -> new InvalidParameterException());
+    public User findByEmail(String email) {
+        return userRepo.findByEmail(email).orElseThrow(InvalidParameterException :: new);
     }
 
     @Override
-    public List<Usert> findAll() {
-        return usertRepo.findAll();
+    public List<User> findAll() {
+        return userRepo.findAll();
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usert user = usertRepo.findByEmail(username).orElseThrow( () -> new InvalidParameterException());
+        User user = userRepo.findByEmail(username).orElseThrow(InvalidParameterException::new);
         Role role = user.getRole();
         Collection<SimpleGrantedAuthority> authority = new ArrayList<>();
         authority.add(new SimpleGrantedAuthority(role.getName()));

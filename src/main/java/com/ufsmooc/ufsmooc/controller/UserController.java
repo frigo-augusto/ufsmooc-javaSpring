@@ -7,21 +7,11 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufsmooc.ufsmooc.domain.dto.UserDto;
 import com.ufsmooc.ufsmooc.domain.entities.Role;
-import com.ufsmooc.ufsmooc.domain.entities.Usert;
-import com.ufsmooc.ufsmooc.domain.repo.UsertRepo;
-import com.ufsmooc.ufsmooc.service.RoleService;
+import com.ufsmooc.ufsmooc.domain.entities.User;
 import com.ufsmooc.ufsmooc.service.RoleServiceInterface;
-import com.ufsmooc.ufsmooc.service.UsertService;
-import com.ufsmooc.ufsmooc.service.UsertServiceInterface;
-import com.ufsmooc.ufsmooc.util.SecurityUtil;
+import com.ufsmooc.ufsmooc.service.UserServiceInterface;
 import com.ufsmooc.ufsmooc.util.UserUtil;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,9 +26,9 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 @RestController @RequiredArgsConstructor
-public class UsertController {
+public class UserController {
 
-    private final UsertServiceInterface usertService;
+    private final UserServiceInterface userService;
     private final RoleServiceInterface roleService;
 
     @RequestMapping(value="/create-user", method = RequestMethod.POST, consumes = "application/JSON")
@@ -47,20 +37,20 @@ public class UsertController {
         if (!user.getPassword().equals(user.getConfirmPassword()) || !UserUtil.isCpfValid(user.getCpf()))
             throw new InvalidParameterException();
         try{
-            Usert userEntity = new Usert(user, roleService.findByName("ROLE_STUDENT"));
-            usertService.save(userEntity);
+            User userEntity = new User(user, roleService.findByName("ROLE_STUDENT"));
+            userService.save(userEntity);
         }
         catch (Exception e){
             e.printStackTrace();
             throw new SQLException();
         }
-        System.out.println(usertService.findByEmail(user.getEmail()));
-        return usertService.findAll().toString();
+        System.out.println(userService.findByEmail(user.getEmail()));
+        return userService.findAll().toString();
     }
 
     @RequestMapping(value="/get-users", method = RequestMethod.GET)
     public String getUsers(){
-        return usertService.findAll().toString();
+        return userService.findAll().toString();
     }
 
     @GetMapping(value = "/refresh-token")
@@ -73,11 +63,11 @@ public class UsertController {
                 JWTVerifier jwtVerifier = JWT.require(algorithm).build();
                 DecodedJWT decodedJWT = jwtVerifier.verify(token);
                 String email = decodedJWT.getSubject();
-                Usert usert = usertService.findByEmail(email);
+                User user = userService.findByEmail(email);
                 List<Role> rolesList = new ArrayList<>(); //change it if switch roles to list in entity
-                rolesList.add(usert.getRole());
+                rolesList.add(user.getRole());
                 String access_token = JWT.create()
-                        .withSubject(usert.getEmail())
+                        .withSubject(user.getEmail())
                         .withExpiresAt(new Date(System.currentTimeMillis() + 10*60*60*1000))//10 days
                         .withIssuer(request.getRequestURL().toString())
                         .withClaim("role", rolesList.stream().map(Role::getName).collect(Collectors.toList()))

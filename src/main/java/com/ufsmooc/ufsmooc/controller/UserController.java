@@ -13,6 +13,11 @@ import com.ufsmooc.ufsmooc.service.UserServiceInterface;
 import com.ufsmooc.ufsmooc.util.UserUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,12 +31,14 @@ import static java.util.Arrays.stream;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
-@RestController("/user")
+@RestController
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserServiceInterface userService;
     private final RoleServiceInterface roleService;
+    private final PasswordEncoder passwordEncoder;
 
     @RequestMapping(value="/create-user", method = RequestMethod.POST, consumes = "application/JSON")
     public String createUser(@RequestBody UserDto user) throws Exception{
@@ -86,5 +93,25 @@ public class UserController {
             throw new InvalidParameterException();
         }
     }
+
+    @GetMapping("/change-password")
+    public void changePassword(@RequestHeader String newPassword){
+        User user =  userService.findByEmail(UserUtil.getCurrentUserEmail());
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userService.save(user);
+    }
+
+    public void updateInfo(@RequestBody UserDto userDto){
+        //updates the info of the user
+    }
+
+    public void transformInTeacher(){
+        //sends request to admin to become teacher
+    }
+
+
+
+
+
 
 }

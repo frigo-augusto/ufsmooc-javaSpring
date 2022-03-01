@@ -21,6 +21,6 @@ public class RoleService implements RoleServiceInterface{
 
     @Override
     public Role findByName(String name) {
-        return roleRepo.findByName(name).orElseThrow(() -> new InvalidParameterException());
+        return roleRepo.findByName(name).orElseThrow(InvalidParameterException :: new);
     }
 }

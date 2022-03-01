@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -23,22 +22,23 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);   //needs to be commented because of bad credentials issue
         auth.userDetailsService(userDetailsService);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         AuthenticationFilter customAuthenticationFilter = new AuthenticationFilter(authenticationManagerBean());
-        
+        customAuthenticationFilter.setFilterProcessesUrl("/login");
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeRequests().antMatchers("/login").permitAll()
-                        .antMatchers("/refresh-token").permitAll();
-        http.authorizeRequests().antMatchers("/**").hasAuthority("ROLE_STUDENT"); //does not work
-        http.authorizeRequests().anyRequest().permitAll();
+        http.authorizeRequests()
+                        .antMatchers("/login").permitAll()
+                        .antMatchers("/refresh-token").permitAll()
+                        .antMatchers("/admin/**").hasAnyRole("ADMIN", "STUDENT", "TEACHER")
+                        .anyRequest().permitAll();
+
         http.addFilter(customAuthenticationFilter);
-        http.addFilterBefore(new AuthenticationFilter(authenticationManagerBean()), UsernamePasswordAuthenticationFilter.class); //line possibly with logic error
+        http.addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class); //line possibly with logic error
     }
 
     @Bean

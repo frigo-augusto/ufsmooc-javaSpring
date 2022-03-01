@@ -28,8 +28,6 @@ public class UserService implements UserServiceInterface, UserDetailsService{
 
     @Override
     public User save(User user) {
-        //user.setPassword(passwordEncoder.encode(user.getPassword())); //needs to be commented because of bad credentials issue
-        System.out.println("opaaa!!!");
         return userRepo.save(user);
     }
 
@@ -53,6 +51,7 @@ public class UserService implements UserServiceInterface, UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("o usuario eh" + username);
         User user = userRepo.findByEmail(username).orElseThrow(InvalidParameterException::new);
         Role role = user.getRole();
         Collection<SimpleGrantedAuthority> authority = new ArrayList<>();

@@ -12,6 +12,7 @@ import com.ufsmooc.ufsmooc.service.RoleServiceInterface;
 import com.ufsmooc.ufsmooc.service.UserServiceInterface;
 import com.ufsmooc.ufsmooc.util.UserUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +26,8 @@ import static java.util.Arrays.stream;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
-@RestController @RequiredArgsConstructor
+@RestController("/user")
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserServiceInterface userService;
@@ -58,6 +60,7 @@ public class UserController {
         try {
             String authorizationHeader = request.getHeader(AUTHORIZATION);
             if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+
                 String token = authorizationHeader.substring("Bearer ".length());
                 Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
                 JWTVerifier jwtVerifier = JWT.require(algorithm).build();

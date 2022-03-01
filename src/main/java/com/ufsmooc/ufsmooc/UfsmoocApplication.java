@@ -26,6 +26,7 @@ public class UfsmoocApplication {
     @Bean
     CommandLineRunner run(UserServiceInterface usertService, RoleService roleService){
         return args -> {
+
             roleService.save(new Role("ROLE_STUDENT"));
             roleService.save(new Role("ROLE_TEACHER"));
             roleService.save(new Role("ROLE_ADMIN"));

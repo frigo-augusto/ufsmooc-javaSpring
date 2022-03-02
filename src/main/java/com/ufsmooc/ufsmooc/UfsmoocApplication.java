@@ -1,8 +1,11 @@
 package com.ufsmooc.ufsmooc;
 
+import com.ufsmooc.ufsmooc.domain.dto.CourseDto;
 import com.ufsmooc.ufsmooc.domain.dto.UserDto;
+import com.ufsmooc.ufsmooc.domain.entities.Course;
 import com.ufsmooc.ufsmooc.domain.entities.Role;
 import com.ufsmooc.ufsmooc.domain.entities.User;
+import com.ufsmooc.ufsmooc.domain.repo.CourseRepo;
 import com.ufsmooc.ufsmooc.service.RoleService;
 import com.ufsmooc.ufsmooc.service.UserServiceInterface;
 import org.springframework.boot.CommandLineRunner;
@@ -10,6 +13,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.Date;
 
 @SpringBootApplication
 public class UfsmoocApplication {
@@ -24,7 +29,7 @@ public class UfsmoocApplication {
     }
 
     @Bean
-    CommandLineRunner run(UserServiceInterface usertService, RoleService roleService){
+    CommandLineRunner run(UserServiceInterface usertService, RoleService roleService, CourseRepo courseRepo){
         return args -> {
 
             roleService.save(new Role("ROLE_STUDENT"));
@@ -42,6 +47,13 @@ public class UfsmoocApplication {
             usertService.addRole("teacher@gmail.com", "ROLE_TEACHER");
             usertService.addRole("admin@gmail.com", "ROLE_ADMIN");
 
+            courseRepo.save(new Course(new CourseDto("curso teste", "subtitulo epico", "null", "descricao",
+                    false, false, new Date(2002, 17, 9), new Date(2002, 18, 9),
+                    new Date(2002, 19, 9), new Date(2002, 20, 9), 20, "a", null, 20, 2)));
+
+            courseRepo.save(new Course(new CourseDto("curso teste 2", "subtitulo epico 2", null, "descricao sem criatividade",
+                    false, false, new Date(2002, 17, 9), new Date(2002, 18, 9),
+                    new Date(2002, 19, 9), new Date(2002, 20, 9), 20, "a", null, 20, 2)));
         };
     }
 }

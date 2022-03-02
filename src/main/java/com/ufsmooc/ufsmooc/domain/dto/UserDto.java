@@ -1,8 +1,13 @@
 package com.ufsmooc.ufsmooc.domain.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 public class UserDto {
 
     String name;
@@ -14,14 +19,4 @@ public class UserDto {
     String password;
     String confirmPassword;
 
-    public UserDto(String name, String surname, String cpf, String email, String uf, String city, String password, String confirmPassword){
-        this.name = name;
-        this.surname = surname;
-        this.cpf = cpf;
-        this.email = email;
-        this.uf = uf;
-        this.city = city;
-        this.password = password;
-        this.confirmPassword = confirmPassword;
-    }
 }

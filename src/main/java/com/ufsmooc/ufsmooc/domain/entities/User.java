@@ -5,11 +5,15 @@ import com.ufsmooc.ufsmooc.domain.dto.UserDto;
 import com.ufsmooc.ufsmooc.util.SecurityUtil;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode
 public class User {
     private static final long serialVersionUID = 1L;
@@ -41,6 +45,9 @@ public class User {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Role role;
+
+    @OneToMany
+    private List<Course> subscribedCourses;
 
     public User(UserDto user, Role role) {
         this.name = user.getName();

@@ -1,14 +1,19 @@
 package com.ufsmooc.ufsmooc.domain.entities;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.ufsmooc.ufsmooc.domain.dto.CourseDto;
+import com.ufsmooc.ufsmooc.domain.dto.UserDto;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode
+@NoArgsConstructor
 public class Course {
 
     @Id
@@ -16,13 +21,13 @@ public class Course {
     private Long id;
 
     @Column(length = 40)
-    private String courseName;
+    private String name;
 
     @Column(length = 40)
-    private String courseSubtitle;
+    private String subtitle;
 
     @Column(nullable = false)
-    private String courseDescription;
+    private String description;
 
     @Column(nullable = false)
     private boolean hasTutoring;
@@ -31,37 +36,61 @@ public class Course {
     private boolean hasCertification;
 
     @Column
-    private boolean numberHours;
+    private Integer numberHours;
 
     @Column
-    private Calendar beginSubscriptionsDate;
+    private Date beginSubscriptionsDate;
 
     @Column
-    private Calendar endSubscriptionsDate;
+    private Date endSubscriptionsDate;
 
     @Column
-    private Calendar beginCourseDate;
+    private Date beginCourseDate;
 
     @Column
-    private Calendar endCourseDate;
+    private Date endCourseDate;
 
     @Column
-    private int studentsLimit;
+    private Integer studentsLimit;
+
+    public Course(CourseDto dto) {
+        this.id = id;
+        this.name = dto.getTitle();
+        this.subtitle = dto.getSubtitle();
+        this.description = dto.getDescription();
+        this.hasTutoring = dto.getHasTutoring();
+        this.hasCertification = dto.getHasCertification();
+        this.numberHours = dto.getNumberHours();
+        this.beginSubscriptionsDate = dto.getBeginSubscriptionsDate();
+        this.endSubscriptionsDate = dto.getEndSubscriptionsDate();
+        this.beginCourseDate = dto.getBeginCourseDate();
+        this.endCourseDate = dto.getEndCourseDate();
+        this.studentsLimit = dto.getStudentsLimit();
+        this.workNotifications = 0;
+        this.questionNotifications = 0;
+        this.forumNotifications = 0;
+        this.doubtNotifications = 0;
+        this.courseCategory = dto.getCategory();
+        this.modules = dto.getModules();
+    }
 
     @Column
-    private int workNotifications;
+    private Integer workNotifications;
 
     @Column
-    private int questionNotifications;
+    private Integer questionNotifications;
 
     @Column
-    private int forumNotifications;
+    private Integer forumNotifications;
 
     @Column
-    private int doubtNotifications;
+    private Integer doubtNotifications;
 
     @Column
-    private int courseCategory;
+    private String courseCategory;
+
+    @OneToMany
+    private List<Module> modules;
 
 
 }

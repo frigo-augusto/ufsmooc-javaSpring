@@ -8,16 +8,25 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.security.InvalidParameterException;
 
+/*
+    @author
+ */
+
+
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class RoleService implements RoleServiceInterface{
     private final RoleRepo roleRepo;
 
+    /*
+    @return the saved role
+     */
     @Override
     public Role save(Role role) {
         return roleRepo.save(role);
     }
+
 
     @Override
     public Role findByName(String name) {

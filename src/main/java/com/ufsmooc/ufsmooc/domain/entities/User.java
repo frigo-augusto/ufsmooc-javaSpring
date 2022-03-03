@@ -47,7 +47,7 @@ public class User {
     private Role role;
 
     @OneToMany
-    private List<Course> subscribedCourses;
+    private List<Teaches> teaches;
 
     public User(UserDto user, Role role) {
         this.name = user.getName();

@@ -9,6 +9,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+/**
+ *
+ * @author Augusto Pagnossim Frigo
+ *
+ */
+
+
 @Entity
 @Getter
 @Setter
@@ -53,6 +60,34 @@ public class Course {
     @Column
     private Integer studentsLimit;
 
+    @Column
+    private Integer workNotifications;
+
+    @Column
+    private Integer questionNotifications;
+
+    @Column
+    private Integer forumNotifications;
+
+    @Column
+    private Integer doubtNotifications;
+
+    @Column
+    private String courseCategory;
+
+    @ManyToMany
+    private List<User> students;
+
+    @ManyToMany
+    private List<User> teachers;
+
+    @OneToMany
+    private List<Module> modules;
+
+    @OneToMany
+    private List<Teaches> teaches;
+
+
     public Course(CourseDto dto) {
         this.id = id;
         this.name = dto.getTitle();
@@ -73,24 +108,6 @@ public class Course {
         this.courseCategory = dto.getCategory();
         this.modules = dto.getModules();
     }
-
-    @Column
-    private Integer workNotifications;
-
-    @Column
-    private Integer questionNotifications;
-
-    @Column
-    private Integer forumNotifications;
-
-    @Column
-    private Integer doubtNotifications;
-
-    @Column
-    private String courseCategory;
-
-    @OneToMany
-    private List<Module> modules;
 
 
 }

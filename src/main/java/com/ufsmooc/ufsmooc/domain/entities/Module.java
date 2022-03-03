@@ -2,6 +2,7 @@ package com.ufsmooc.ufsmooc.domain.entities;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -34,5 +35,9 @@ public class Module {
 
     @OneToMany
     private List<ModulePartition> partitions;
+
+    public Module(){
+
+    }
 
 }

@@ -1,11 +1,10 @@
 package com.ufsmooc.ufsmooc.domain.entities;
 
 import com.ufsmooc.ufsmooc.domain.dto.CourseDto;
-import com.ufsmooc.ufsmooc.domain.dto.UserDto;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -75,8 +74,8 @@ public class Course {
     @Column
     private String courseCategory;
 
-    @ManyToMany
-    private List<User> students;
+    /*@ManyToMany
+    private List<User> students;*/
 
     @ManyToMany
     private List<User> teachers;
@@ -89,7 +88,6 @@ public class Course {
 
 
     public Course(CourseDto dto) {
-        this.id = id;
         this.name = dto.getTitle();
         this.subtitle = dto.getSubtitle();
         this.description = dto.getDescription();
@@ -106,7 +104,9 @@ public class Course {
         this.forumNotifications = 0;
         this.doubtNotifications = 0;
         this.courseCategory = dto.getCategory();
-        this.modules = dto.getModules();
+        modules = new ArrayList<>();
+        dto.getModules().stream()
+                .forEach(moduleDto -> modules.add(new Module(moduleDto)));
     }
 
 

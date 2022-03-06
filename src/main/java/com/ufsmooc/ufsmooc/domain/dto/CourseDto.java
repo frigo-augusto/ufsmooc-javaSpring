@@ -1,9 +1,11 @@
 package com.ufsmooc.ufsmooc.domain.dto;
 
+import com.sun.istack.NotNull;
 import com.ufsmooc.ufsmooc.domain.entities.Module;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.Date;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
+@Validated
 public class CourseDto {
 
     private String title;
@@ -25,7 +28,11 @@ public class CourseDto {
     private Date endCourseDate;
     private Integer studentsLimit;
     private String category;
-    private List<Module> modules;
+
+    @NotNull
+    private List<ModuleDto> modules;
+
     private Integer numberHours;
     private Integer level;
+
 }

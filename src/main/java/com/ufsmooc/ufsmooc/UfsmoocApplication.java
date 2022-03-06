@@ -5,7 +5,7 @@ import com.ufsmooc.ufsmooc.domain.dto.UserDto;
 import com.ufsmooc.ufsmooc.domain.entities.Course;
 import com.ufsmooc.ufsmooc.domain.entities.Role;
 import com.ufsmooc.ufsmooc.domain.entities.User;
-import com.ufsmooc.ufsmooc.domain.repo.CourseRepo;
+import com.ufsmooc.ufsmooc.domain.repo.*;
 import com.ufsmooc.ufsmooc.service.RoleService;
 import com.ufsmooc.ufsmooc.service.UserServiceInterface;
 import org.springframework.boot.CommandLineRunner;
@@ -29,7 +29,10 @@ public class UfsmoocApplication {
     }
 
     @Bean
-    CommandLineRunner run(UserServiceInterface usertService, RoleService roleService, CourseRepo courseRepo){
+    CommandLineRunner run(UserServiceInterface usertService, RoleService roleService,
+                          CourseRepo courseRepo,
+                          ModulePartitionRepo modulePartitionRepo,
+                          LectureRepo lectureRepo, VideoRepo videoRepo){
         return args -> {
 
             roleService.save(new Role("ROLE_STUDENT"));
@@ -54,6 +57,13 @@ public class UfsmoocApplication {
             courseRepo.save(new Course(new CourseDto("curso teste 2", "subtitulo epico 2", null, "descricao sem criatividade",
                     false, false, new Date(2002, 17, 9), new Date(2002, 18, 9),
                     new Date(2002, 19, 9), new Date(2002, 20, 9), 20, "a", null, 20, 2)));
+
+            /*moduleRepo.save(new Module());
+            Module a = moduleRepo.findById(Long.getLong(String.valueOf(1))).orElseThrow(NullPointerException :: new).
+            lectureRepo.save(new Lecture("aprendizado foda"));
+            videoRepo.save(new Video());
+            lectureRepo.save(new Lecture("aprendizado foda que fica no 3"));*/
+
         };
     }
 }

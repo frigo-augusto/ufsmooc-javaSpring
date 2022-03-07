@@ -2,15 +2,11 @@ package com.ufsmooc.ufsmooc.controller;
 
 import com.ufsmooc.ufsmooc.domain.dto.CourseDto;
 import com.ufsmooc.ufsmooc.domain.entities.Course;
-import com.ufsmooc.ufsmooc.domain.entities.Module;
-import com.ufsmooc.ufsmooc.domain.entities.ModulePartition;
 import com.ufsmooc.ufsmooc.domain.entities.Role;
-import com.ufsmooc.ufsmooc.domain.entities.partition.Lecture;
 import com.ufsmooc.ufsmooc.domain.repo.CourseRepo;
 import com.ufsmooc.ufsmooc.domain.repo.ModulePartitionRepo;
 import com.ufsmooc.ufsmooc.domain.repo.ModuleRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,9 +67,9 @@ public class CourseController {
         System.out.println(courseDto.getTitle());
         System.out.println(courseDto.getModules().get(0).getTitle());
         System.out.println(courseDto.getModules().get(0).getPartitions().get(0).getName());
-        System.out.println(courseDto.getModules().get(0).getPartitions().get(0).getLecture().getContent());
+        //System.out.println(courseDto.getModules().get(0).getPartitions().get(0).getLecture().getContent());
 
-        System.out.println(course.getModules().get(0).getPartitions().get(0).getLecture().getContent());
+        System.out.println(course.getModules().get(0).getPartitions().get(0));
         courseRepo.save(course);
 
         return null;

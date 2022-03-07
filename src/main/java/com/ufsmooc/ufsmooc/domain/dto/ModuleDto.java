@@ -1,14 +1,10 @@
 package com.ufsmooc.ufsmooc.domain.dto;
 
-import com.ufsmooc.ufsmooc.domain.entities.Course;
-import com.ufsmooc.ufsmooc.domain.entities.ModulePartition;
+import com.ufsmooc.ufsmooc.domain.dto.partition.ModulePartitionDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import java.util.List;
 
 @AllArgsConstructor

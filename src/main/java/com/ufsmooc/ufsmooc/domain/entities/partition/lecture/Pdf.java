@@ -1,11 +1,7 @@
-package com.ufsmooc.ufsmooc.domain.entities.partition;
+package com.ufsmooc.ufsmooc.domain.entities.partition.lecture;
 
-
-import com.ufsmooc.ufsmooc.domain.dto.partition.VideoDto;
-import com.ufsmooc.ufsmooc.domain.entities.ModulePartition;
-import lombok.EqualsAndHashCode;
+import com.ufsmooc.ufsmooc.domain.dto.partition.lecture.PdfDto;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -16,15 +12,17 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-public class Video{
+
+public class Pdf extends Lecture{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Video(VideoDto dto){
+    private String path;
 
+    public Pdf(PdfDto pdfDto){
+        this.path = pdfDto.getPath();
     }
 
 

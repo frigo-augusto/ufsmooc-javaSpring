@@ -31,8 +31,7 @@ public class UfsmoocApplication {
     @Bean
     CommandLineRunner run(UserServiceInterface usertService, RoleService roleService,
                           CourseRepo courseRepo,
-                          ModulePartitionRepo modulePartitionRepo,
-                          LectureRepo lectureRepo, VideoRepo videoRepo){
+                          ModulePartitionRepo modulePartitionRepo){
         return args -> {
 
             roleService.save(new Role("ROLE_STUDENT"));

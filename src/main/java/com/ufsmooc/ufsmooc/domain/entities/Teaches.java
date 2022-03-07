@@ -1,6 +1,6 @@
 package com.ufsmooc.ufsmooc.domain.entities;
 
-import com.ufsmooc.ufsmooc.domain.entities.partition.Questionary;
+import com.ufsmooc.ufsmooc.domain.entities.partition.evaluable.Questionary;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

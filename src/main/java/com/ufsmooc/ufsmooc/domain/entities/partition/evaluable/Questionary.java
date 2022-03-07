@@ -1,6 +1,6 @@
-package com.ufsmooc.ufsmooc.domain.entities.partition;
+package com.ufsmooc.ufsmooc.domain.entities.partition.evaluable;
 
-import com.ufsmooc.ufsmooc.domain.dto.partition.QuestionaryDto;
+import com.ufsmooc.ufsmooc.domain.dto.partition.evaluable.QuestionaryDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +14,7 @@ import javax.persistence.Id;
 @Setter
 @Entity
 @NoArgsConstructor
-public class Questionary{
+public class Questionary extends Evaluable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

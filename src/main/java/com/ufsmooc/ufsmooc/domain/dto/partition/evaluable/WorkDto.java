@@ -1,4 +1,4 @@
-package com.ufsmooc.ufsmooc.domain.dto.partition;
+package com.ufsmooc.ufsmooc.domain.dto.partition.evaluable;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

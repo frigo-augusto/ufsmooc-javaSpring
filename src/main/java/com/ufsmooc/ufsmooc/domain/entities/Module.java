@@ -1,7 +1,16 @@
 package com.ufsmooc.ufsmooc.domain.entities;
 
 import com.ufsmooc.ufsmooc.domain.dto.ModuleDto;
-import com.ufsmooc.ufsmooc.domain.dto.ModulePartitionDto;
+import com.ufsmooc.ufsmooc.domain.dto.partition.evaluable.QuestionaryDto;
+import com.ufsmooc.ufsmooc.domain.dto.partition.evaluable.WorkDto;
+import com.ufsmooc.ufsmooc.domain.dto.partition.lecture.ContentDto;
+import com.ufsmooc.ufsmooc.domain.dto.partition.lecture.PdfDto;
+import com.ufsmooc.ufsmooc.domain.dto.partition.lecture.VideoDto;
+import com.ufsmooc.ufsmooc.domain.entities.partition.evaluable.Questionary;
+import com.ufsmooc.ufsmooc.domain.entities.partition.evaluable.Work;
+import com.ufsmooc.ufsmooc.domain.entities.partition.lecture.Content;
+import com.ufsmooc.ufsmooc.domain.entities.partition.lecture.Pdf;
+import com.ufsmooc.ufsmooc.domain.entities.partition.lecture.Video;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,8 +54,15 @@ public class Module {
         this.isAdditional = isAdditional();
         this.partitions = new ArrayList<>();
         if (moduleDto.getPartitions() != null) {
-            moduleDto.getPartitions().stream()
-                    .forEach(partition -> partitions.add(new ModulePartition(partition)));
+            for(var partition: moduleDto.getPartitions()){
+                switch (partition.getType()) {
+                    case 1 -> partitions.add(new Content((ContentDto) partition.getContent()));
+                    case 2 -> partitions.add(new Video(((VideoDto) partition.getContent())));
+                    case 3 -> partitions.add(new Pdf((PdfDto) partition.getContent()));
+                    case 4 -> partitions.add(new Work((WorkDto) partition.getContent()));
+                    case 5 -> partitions.add(new Questionary((QuestionaryDto)partition.getContent()));
+                }
+            }
         }
 
     }

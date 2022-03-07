@@ -1,6 +1,7 @@
 package com.ufsmooc.ufsmooc.domain.entities.partition;
 
 
+import com.ufsmooc.ufsmooc.domain.dto.partition.VideoDto;
 import com.ufsmooc.ufsmooc.domain.entities.ModulePartition;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -21,6 +22,10 @@ public class Video{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    public Video(VideoDto dto){
+
+    }
 
 
 }

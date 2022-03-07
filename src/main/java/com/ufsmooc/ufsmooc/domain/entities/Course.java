@@ -105,8 +105,10 @@ public class Course {
         this.doubtNotifications = 0;
         this.courseCategory = dto.getCategory();
         modules = new ArrayList<>();
-        dto.getModules().stream()
-                .forEach(moduleDto -> modules.add(new Module(moduleDto)));
+        if (dto.getModules() != null) {
+            dto.getModules().stream()
+                    .forEach(moduleDto -> modules.add(new Module(moduleDto)));
+        }
     }
 
 

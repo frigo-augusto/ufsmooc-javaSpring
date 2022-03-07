@@ -1,5 +1,6 @@
 package com.ufsmooc.ufsmooc.domain.entities.partition;
 
+import com.ufsmooc.ufsmooc.domain.dto.partition.LectureDto;
 import com.ufsmooc.ufsmooc.domain.entities.ModulePartition;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,7 +24,7 @@ public class Lecture{
 
     private String content;
 
-    public Lecture(String content) {
-        this.content = content;
+    public Lecture(LectureDto dto) {
+        this.content = dto.getContent();
     }
 }

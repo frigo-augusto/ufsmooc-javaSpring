@@ -1,5 +1,6 @@
 package com.ufsmooc.ufsmooc.domain.entities.partition;
 
+import com.ufsmooc.ufsmooc.domain.dto.partition.QuestionaryDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,5 +20,8 @@ public class Questionary{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    public Questionary(QuestionaryDto dto){
+
+    }
 
 }

@@ -16,13 +16,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/course")
 @RequiredArgsConstructor
-@Validated
+@Transactional
 public class CourseController {
 
     private final CourseRepo courseRepo;
@@ -65,7 +66,16 @@ public class CourseController {
     @GetMapping("/get-all-modulePartition")
     public Object createCourse(@RequestBody CourseDto courseDto){
         Course course = new Course(courseDto);
+
+
+        System.out.println(courseDto.getTitle());
+        System.out.println(courseDto.getModules().get(0).getTitle());
+        System.out.println(courseDto.getModules().get(0).getPartitions().get(0).getName());
+        System.out.println(courseDto.getModules().get(0).getPartitions().get(0).getLecture().getContent());
+
+        System.out.println(course.getModules().get(0).getPartitions().get(0).getLecture().getContent());
         courseRepo.save(course);
+
         return null;
     }
 

@@ -11,7 +11,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ModulePartitionDto<T> {
+public class ModulePartitionDto {
 
     private String name;
     private Integer type;

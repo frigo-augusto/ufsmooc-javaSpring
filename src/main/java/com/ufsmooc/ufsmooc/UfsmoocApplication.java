@@ -50,20 +50,14 @@ public class UfsmoocApplication {
             usertService.addRole("teacher@gmail.com", "ROLE_TEACHER");
             usertService.addRole("admin@gmail.com", "ROLE_ADMIN");
 
-            courseRepo.save(new Course(new CourseDto("curso teste", "subtitulo epico", "null", "descricao",
+            /*courseRepo.save(new Course(new CourseDto("curso teste", "subtitulo epico", "null", "descricao",
                     false, false, new Date(2002, 17, 9), new Date(2002, 18, 9),
                     new Date(2002, 19, 9), new Date(2002, 20, 9), 20, "a", null, 20, 2)));
 
             courseRepo.save(new Course(new CourseDto("curso teste 2", "subtitulo epico 2", null, "descricao sem criatividade",
                     false, false, new Date(2002, 17, 9), new Date(2002, 18, 9),
                     new Date(2002, 19, 9), new Date(2002, 20, 9), 20, "a", null, 20, 2)));
-
-            /*moduleRepo.save(new Module());
-            Module a = moduleRepo.findById(Long.getLong(String.valueOf(1))).orElseThrow(NullPointerException :: new).
-            lectureRepo.save(new Lecture("aprendizado foda"));
-            videoRepo.save(new Video());
-            lectureRepo.save(new Lecture("aprendizado foda que fica no 3"));*/
-
+            */
         };
     }
 }

@@ -34,16 +34,9 @@ public class Module {
     @Column
     private boolean isAdditional;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<ModulePartition> partitions;
 
-    public Module(String title, String path, Course course, int position, boolean isAdditional) {
-        this.title = title;
-        this.path = path;
-        this.position = position;
-        this.isAdditional = isAdditional;
-        this.partitions = new ArrayList<>();
-    }
 
     public Module(ModuleDto moduleDto){
         this.title = moduleDto.getTitle();
@@ -51,8 +44,10 @@ public class Module {
         this.position = moduleDto.getPosition();
         this.isAdditional = isAdditional();
         this.partitions = new ArrayList<>();
-        moduleDto.getPartitions().stream()
-                .forEach(partition -> partitions.add(new ModulePartition(partition)));
+        if (moduleDto.getPartitions() != null) {
+            moduleDto.getPartitions().stream()
+                    .forEach(partition -> partitions.add(new ModulePartition(partition)));
+        }
 
     }
 

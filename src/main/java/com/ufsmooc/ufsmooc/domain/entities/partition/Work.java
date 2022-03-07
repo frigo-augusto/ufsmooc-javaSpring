@@ -1,6 +1,7 @@
 package com.ufsmooc.ufsmooc.domain.entities.partition;
 
 
+import com.ufsmooc.ufsmooc.domain.dto.partition.WorkDto;
 import com.ufsmooc.ufsmooc.domain.entities.ModulePartition;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,5 +29,9 @@ public class Work extends ModulePartition {
     public Work(double weight, String enunciado) {
         this.weight = weight;
         this.enunciado = enunciado;
+    }
+
+    public Work(WorkDto dto){
+
     }
 }

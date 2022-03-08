@@ -23,14 +23,11 @@ public class Work extends Evaluable {
 
     private double weight;
 
-    private String enunciado;
+    private String enunciate;
 
-    public Work(double weight, String enunciado) {
-        this.weight = weight;
-        this.enunciado = enunciado;
+    public Work(WorkDto work) {
+        this.weight = work.getWeight();
+        this.enunciate = work.getEnunciate();
     }
 
-    public Work(WorkDto dto){
-
-    }
 }

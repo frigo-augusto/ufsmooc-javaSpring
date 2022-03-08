@@ -56,11 +56,11 @@ public class Module {
         if (moduleDto.getPartitions() != null) {
             for(var partition: moduleDto.getPartitions()){
                 switch (partition.getType()) {
-                    case 1 -> partitions.add(new Content((ContentDto) partition.getContent()));
-                    case 2 -> partitions.add(new Video(((VideoDto) partition.getContent())));
-                    case 3 -> partitions.add(new Pdf((PdfDto) partition.getContent()));
-                    case 4 -> partitions.add(new Work((WorkDto) partition.getContent()));
-                    case 5 -> partitions.add(new Questionary((QuestionaryDto)partition.getContent()));
+                    case 1 -> partitions.add(new Content(partition.getContent()));
+                    case 2 -> partitions.add(new Video((partition.getVideo())));
+                    case 3 -> partitions.add(new Pdf(partition.getPdf()));
+                    case 4 -> partitions.add(new Work(partition.getWork()));
+                    case 5 -> partitions.add(new Questionary(partition.getQuestionary()));
                 }
             }
         }

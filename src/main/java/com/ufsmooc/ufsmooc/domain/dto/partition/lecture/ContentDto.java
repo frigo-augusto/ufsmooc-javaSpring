@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class ContentDto {
-    private String content;
 
+    private String content;
+    private String nullable; //gambiarra
 }

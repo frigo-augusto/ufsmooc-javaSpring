@@ -66,11 +66,11 @@ public class CourseController {
 
         System.out.println(courseDto.getTitle());
         System.out.println(courseDto.getModules().get(0).getTitle());
-        System.out.println(courseDto.getModules().get(0).getPartitions().get(0).getName());
+        System.out.println("Nome foda:"+ courseDto.getModules().get(0).getPartitions().get(0).getName());
         //System.out.println(courseDto.getModules().get(0).getPartitions().get(0).getLecture().getContent());
 
-        System.out.println(course.getModules().get(0).getPartitions().get(0));
-        courseRepo.save(course);
+        //System.out.println(course.getModules().get(0).getPartitions().get(0));
+        //courseRepo.save(course);
 
         return null;
     }
